@@ -1,0 +1,248 @@
+<!DOCTYPE html> 
+<head>
+	<meta charset="utf-8" />
+	 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<title>Stefan'S -Design</title>
+
+	<link href="css/font-awesome.min.css" rel="stylesheet"/>
+	 <link rel="stylesheet/less" type="text/css" href="probaj.less" />
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
+</head>
+<body>
+
+<header>
+<div id="header-inner">
+<a href="index.html" id="logo"><h1 id="ss">Stefan'S</h1></a>
+<nav>
+<a href="#" id="menu-icon"></a>
+<ul>
+<li>
+<a href="index.html" class="current">Home</a>
+<li><a href="profile.html">Profile</a></li>
+<li><a href="contact.html">Contact</a></li>
+
+</li>
+</ul>
+
+</nav>
+</div>
+</header>
+<section class="baner">
+<div class="tekst">
+	<div class="decal"></div>
+		<div class="jumbotron">
+	=
+			
+  		
+  		  <p class="tlt" data-in-effect="bounceInDown">
+  		Samo najbolje je dovoljno dobro!
+  		  </p>
+      
+       
+  		</div>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="assets/jquery.fittext.js"></script>
+<script src="assets/jquery.lettering.js"></script>
+<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
+<script src="jquery.textillate.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+  $(function (){
+    var log = function (msg) {
+      return function () {
+        if (console) console.log(msg);
+      }
+    }
+    $('code').each(function () {
+      var $this = $(this);
+      $this.text($this.html());
+    })
+
+    var animateClasses = 'flash bounce shake tada swing wobble pulse flip flipInX flipOutX flipInY flipOutY fadeIn fadeInUp fadeInDown fadeInLeft fadeInRight fadeInUpBig fadeInDownBig fadeInLeftBig fadeInRightBig fadeOut fadeOutUp fadeOutDown fadeOutLeft fadeOutRight fadeOutUpBig fadeOutDownBig fadeOutLeftBig fadeOutRightBig bounceIn bounceInDown bounceInUp bounceInLeft bounceInRight bounceOut bounceOutDown bounceOutUp bounceOutLeft bounceOutRight rotateIn rotateInDownLeft rotateInDownRight rotateInUpLeft rotateInUpRight rotateOut rotateOutDownLeft rotateOutDownRight rotateOutUpLeft rotateOutUpRight hinge rollIn rollOut';
+
+    var $form = $('.playground form')
+      , $viewport = $('.playground .viewport');
+
+    var getFormData = function () {
+      var data = {
+        loop: true,
+        in: { callback: log('in callback called.') },
+        out: { callback: log('out callback called.') }
+      };
+
+      $form.find('[data-key="effect"]').each(function () {
+        var $this = $(this)
+          , key = $this.data('key')
+          , type = $this.data('type');
+
+          data[type][key] = $this.val();
+      });
+
+      $form.find('[data-key="type"]').each(function () {
+        var $this = $(this)
+          , key = $this.data('key')
+          , type = $this.data('type')
+          , val = $this.val();
+
+          data[type].shuffle = (val === 'shuffle');
+          data[type].reverse = (val === 'reverse');
+          data[type].sync = (val === 'sync');
+      });
+
+      return data;
+    };
+
+    $.each(animateClasses.split(' '), function (i, value) {
+      var type = '[data-type]'
+        , option = '<option value="' + value + '">' + value + '</option>';
+
+      if (/Out/.test(value) || value === 'hinge') {
+        type = '[data-type="out"]';
+      } else if (/In/.test(value)) {
+        type = '[data-type="in"]';
+      }
+
+      if (type) {
+        $form.find('[data-key="effect"]' + type).append(option);
+      }
+    });
+
+    $form.find('[data-key="effect"][data-type="in"]').val('fadeInLeftBig');
+    $form.find('[data-key="effect"][data-type="out"]').val('hinge');
+
+    $('.jumbotron h1')
+      .fitText(0.5)
+      .textillate({ in: { effect: 'flipInY' }});
+
+    $('.jumbotron p')
+      .fitText(3.2, { maxFontSize: 18 })
+      .textillate({ initialDelay: 1000, in: { delay: 3, shuffle: true } });
+
+    setTimeout(function () {
+        $('.fade').addClass('in');
+    }, 250);
+
+    setTimeout(function () {
+      $('h1.glow').removeClass('in');
+    }, 2000);
+
+    var $tlt = $viewport.find('.tlt')
+      .on('start.tlt', log('start.tlt triggered.'))
+      .on('inAnimationBegin.tlt', log('inAnimationBegin.tlt triggered.'))
+      .on('inAnimationEnd.tlt', log('inAnimationEnd.tlt triggered.'))
+      .on('outAnimationBegin.tlt', log('outAnimationBegin.tlt triggered.'))
+      .on('outAnimationEnd.tlt', log('outAnimationEnd.tlt triggered.'))
+      .on('end.tlt', log('end.tlt'));
+
+    $form.on('change', function () {
+      var obj = getFormData();
+      $tlt.textillate(obj);
+    }).trigger('change');
+
+  });
+
+	</script>
+	 <script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+      var map, infoWindow;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 6
+        });
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDuHh7KgGXSPHAbOfK-WPNoZ5FGleJym0&callback=initMap">
+    </script>
+
+
+</div>	
+
+
+
+</section>
+
+ <section class="inner-wrapper">
+<article id="tablet">
+	<img src="img/2011-02-11-Yellow-Post-it-stac-300px.png" class="slika">
+
+</article>
+<aside id="tablet2">
+	<h2>Kontakt</h2>
+<p>
+Nalazimo se u Beogradu. Mozete nas kontaktirati putem mail-a: stefan.stojcic.141.14@ict.edu.rs
+
+
+</p>
+</aside>
+ </section>
+<section class="inner-wrapper-2">
+	<article id="mobile">
+		<h2>Zanimljivost</h2>
+		<p>Veliki broj zavisnika od interneta u Kini naveo je ovu državu da 2004. godine osnuje vojne kampove širom zemlje čija specijalnost bi bila lečenje od ovog oblika zavisnosti.</p>
+	</article>
+<aside class="hand_mobile">
+	<img src="img/news-300px.png" class="slika">
+
+</aside>
+</section>
+
+<section class="inner-wrapper">
+	
+<aside id="desktop">
+<div id="maps"><h2>Mapa</h2>
+<div id="map"></div></div>
+</aside>
+</section>
+
+
+<footer>
+<ul class="social">
+<li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+
+<li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
+</li>
+<li><a href="#" target="_blank"><i class="fa fa-youtube"></i></a>
+</li>
+<li><a href="#" target="_blank"><i class="fa fa-instagram"></i></a>
+</li>
+</ul>
+</footer>
+<footer class="second">
+<p>&copy; Stefan Stojcic </p>
+</footer>
+</body>
+</html>
